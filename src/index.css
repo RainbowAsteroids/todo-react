@@ -1,13 +1,132 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  transition: all 0.125s linear;
+  font: 1em/1.62 sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-size: 150%;
+}
+
+html, body, #root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+main {
+  width: 50%;
+  height: 100%;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 225%;
+}
+
+.add-todo {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-todo * {
+  margin: 0 1em;
+}
+
+.add-todo input {
+  width: 100%;
+  height: 1.75em;
+}
+
+.add-todo button {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+
+  padding: none;
+  border: none;
+  margin: none;
+
+  border-radius: 50%;
+  width: 1.65em;
+}
+
+.add-todo button:hover {
+  background-color: #0005;
+}
+
+.todo-list {
+  width: 100%;
+
+  list-style: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.todo-list li {
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  padding: 1rem;
+
+  border-top: solid 1px black;
+  background-color: #0000002a;
+}
+
+.todo-list li.visible {
+  opacity: 1;
+}
+
+.todo-list li:first-child {
+  border: none;
+}
+
+.todo-list li:nth-child(even) {
+  background-color: #0001;
+}
+
+.todo-text {
+  width: 100%;
+  display: block;
+  font-size: 115%;
+}
+
+.todo-text.completed {
+  text-decoration: line-through;
+  color: #444;
+}
+
+.todo-delete, .todo-complete {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+
+  padding: none;
+  border: none;
+  margin: none;
+
+  border-radius: 50%;
+  width: 1.6em;
+  margin-left: 1rem;
+}
+
+.todo-delete:hover, .todo-complete:hover {
+  background-color: #0005;
 }
