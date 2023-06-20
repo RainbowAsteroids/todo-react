@@ -9,8 +9,33 @@ type TodoState = {
 }
 
 function App() {
+  const [ready, setReady] = useState(false);
   const [count, setCount] = useState(0);
   const [todos, setTodos] = useState<{[index: number]: TodoState}>({});
+
+  // Get todos from local storage on mount
+  const todosKey = "todos"
+  useEffect(() => {
+    const todosJson = window.localStorage.getItem(todosKey);
+    if (todosJson !== null) {
+      console.log("read")
+      const todos = JSON.parse(todosJson);
+      
+      let highestCount = 0;
+      Object.keys(todos).forEach(key => highestCount = +key > highestCount ? +key : highestCount)
+      setCount(highestCount)
+
+      setTodos(todos);
+    }
+
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (ready) {
+      window.localStorage.setItem(todosKey, JSON.stringify(todos))
+    }
+  }, [todos]);
 
   const onNewTodo = (description: string) => {
     setTodos({ ...todos, [count]: {id: count, description, completed: false} });
@@ -20,12 +45,12 @@ function App() {
   const onDelete = (id: number) => {
     delete todos[id];
     setTodos({ ...todos });
-  }
+  };
 
   const onComplete = (id: number) => {
     todos[id].completed = !todos[id].completed;
     setTodos({ ...todos });
-  }
+  };
 
   return (
     <main>
