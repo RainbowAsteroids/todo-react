@@ -12,6 +12,13 @@ function App() {
   const [ready, setReady] = useState(false);
   const [count, setCount] = useState(0);
   const [todos, setTodos] = useState<{[index: number]: TodoState}>({});
+  
+  const [darkMode, setDarkMode] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  // Set app to dark mode
+  useEffect(() => {
+    document.body.className = darkMode ? "dark-mode" : "light-mode";
+  }, [darkMode])
 
   // Get todos from local storage on mount
   const todosKey = "todos"
@@ -31,11 +38,12 @@ function App() {
     setReady(true);
   }, []);
 
+  // Set todos from local storage
   useEffect(() => {
     if (ready) {
       window.localStorage.setItem(todosKey, JSON.stringify(todos))
     }
-  }, [todos]);
+  }, [todos, ready]);
 
   const onNewTodo = (description: string) => {
     setTodos({ ...todos, [count]: {id: count, description, completed: false} });
@@ -125,8 +133,10 @@ function Todo({description, id, completed, onDelete, onComplete}: TodoProps) {
   const descriptionClassName = completed ? "todo-text completed" : "todo-text"
 
   const deleteButtonOnClick = () => {
-    setVisible(false); 
-    setTimeout(() => onDelete(id), 250);
+    // fade out effect
+    // setVisible(false); 
+    // setTimeout(() => onDelete(id), 250);
+    onDelete(id);
   }
 
   return (
